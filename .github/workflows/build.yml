@@ -11,7 +11,7 @@ jobs:
       
       - name: Clone PartyUI
         run: |
-          git clone --branch 1.0.0 --depth 1 https://github.com/XTS2005/PartyUI.git ../PartyUI
+          git clone --branch 0.5.5 --depth 1 https://github.com/XTS2005/PartyUI.git ../PartyUI
       
       - name: Setup latest Xcode
         uses: maxim-lobanov/setup-xcode@v1
