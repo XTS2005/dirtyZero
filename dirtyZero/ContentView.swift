@@ -133,7 +133,7 @@ struct ContentView: View {
                 Button(action: {
                     showSettingsView.toggle()
                 }) {
-                    CompactAlert(title: "Offsets are missing!", icon: "exclamationmark.triangle.fill", text: "Offsets are required to use DarkSword. Click \"Run Exploit\", then click \"Fetch Kernelcache\".")
+                    CompactAlert(title: "缺少偏移量！", icon: "exclamationmark.triangle.fill", text: "使用 DarkSword 需要偏移量。点击\"运行漏洞利用\"，然后点击\"获取内核缓存\"。")
                 }
             }
         }
@@ -142,7 +142,7 @@ struct ContentView: View {
     
     // MARK: Applying Section
     private var ApplyingSection: some View {
-        Section(header: HeaderLabel(text: "Logs", icon: "terminal"), footer: Text("Made with love by the [jailbreak.party](https://jailbreak.party) team.\nJoin the jailbreak.party [discord!](https://jailbreak.party/discord)").font(.footnote).foregroundStyle(.secondary)) {
+        Section(header: HeaderLabel(text: "日志", icon: "terminal"), footer: Text("由 [jailbreak.party](https://jailbreak.party) 团队倾心制作。\n加入 jailbreak.party [Discord 频道](https://jailbreak.party/discord)！").font(.footnote).foregroundStyle(.secondary)) {
             VStack {
                 VStack(alignment: .leading) {
                     HStack {
@@ -166,15 +166,15 @@ struct ContentView: View {
     
     // MARK: Debugging Section
     private var DebuggingSection: some View {
-        Section(header: HeaderLabel(text: "Debugging", icon: "ant")) {
+        Section(header: HeaderLabel(text: "调试", icon: "ant")) {
             HStack {
-                TextField("Custom Path", text: $customZeroPath)
+                TextField("自定义路径", text: $customZeroPath)
                     .modifier(TextFieldBackground())
                 Button(action: {
                     do {
                         try mgr.zeroPage(path: customZeroPath)
                     } catch {
-                        Alertinator.shared.alert(title: "Failed to zero file!", body: "\(error)")
+                        Alertinator.shared.alert(title: "文件清零失败！", body: "\(error)")
                     }
                 }) {
                     Image(systemName: "checkmark")
@@ -186,7 +186,7 @@ struct ContentView: View {
             Button(action: {
                 tweakArray = TweakArray.tweaks
             }) {
-                HeaderLabel(text: "Reset TweakArray", icon: "trash")
+                HeaderLabel(text: "重置调整列表", icon: "trash")
             }
             .buttonStyle(TranslucentButtonStyle(color: .red))
         }
@@ -197,7 +197,7 @@ struct ContentView: View {
     // i hate this whole section a lot, but breaking this up into three seperate arrays would suck for management. this is likely the best solution.
     private var ListedTweaksSection: some View {
         ForEach($tweakArray) { $section in
-            let sectionType: SectionType = section.name == "Custom Tweaks" ? .custom : section.name == "Risky Tweaks" ? .risky : .normal
+            let sectionType: SectionType = section.name == "自定义调整" ? .custom : section.name == "风险调整" ? .risky : .normal
             
             if sectionType == .risky && enableRiskyTweaks || sectionType != .risky && !section.tweaks.isEmpty {
                 Section(header: HeaderDropdown(text: section.name, icon: section.icon, isExpanded: $section.isExpanded, useItemCount: true, itemCount: section.tweaks.filter { version >= $0.minSupportedVersion && version <= $0.maxSupportedVersion || enableDebugSettings }.count)) {
@@ -229,7 +229,7 @@ struct ContentView: View {
                                     }
                                     if sectionType == .custom {
                                         Button(action: {
-                                            let customTweaksIndex = tweakArray.firstIndex(where: { $0.name == "Custom Tweaks" }) ?? 0
+                                            let customTweaksIndex = tweakArray.firstIndex(where: { $0.name == "自定义调整" }) ?? 0
                                             
                                             tweakArray[customTweaksIndex].tweaks.removeAll { $0.name == tweak.name }
                                         }) {
@@ -257,11 +257,11 @@ struct ContentView: View {
                         mgr.run()
                     }) {
                         if mgr.dsfailed || mgr.vfsfailed {
-                            ButtonLabel(text: "Exploit Failed!", icon: "xmark")
+                            ButtonLabel(text: "漏洞利用失败！", icon: "xmark")
                         } else if mgr.dsrunning || mgr.vfsrunning {
-                            ButtonLabel(text: "Running Exploit...", icon: "showMeProgressPlease")
+                            ButtonLabel(text: "正在运行漏洞利用...", icon: "showMeProgressPlease")
                         } else {
-                            ButtonLabel(text: "Run DarkSword", icon: "ant")
+                            ButtonLabel(text: "运行 DarkSword", icon: "ant")
                         }
                     }
                     .buttonStyle(FancyButtonStyle(color: mgr.dsfailed || mgr.vfsfailed ? .red : .purple))
@@ -279,7 +279,7 @@ struct ContentView: View {
                                 DispatchQueue.main.async {
                                     mgr.hasOffsets = true
                                     fetchingKcache = false
-                                    Alertinator.shared.alert(title: "Successfully feteched kernelcache!", body: "Now, restart the app to finish setup and use dirtyZero.", showCancel: false, actionLabel: "Exit", action: { exitinator() })
+                                    Alertinator.shared.alert(title: "成功获取内核缓存！", body: "现在，重启应用以完成设置并使用 dirtyZero。", showCancel: false, actionLabel: "退出", action: { exitinator() })
                                 }
                                 return
                             }
@@ -289,16 +289,16 @@ struct ContentView: View {
                             DispatchQueue.main.async {
                                 mgr.hasOffsets = dlkc
                                 if dlkc {
-                                    Alertinator.shared.alert(title: "Successfully downloaded kernelcache!", body: "Now, restart the app to finish setup and use dirtyZero.", showCancel: false, actionLabel: "Exit", action: { exitinator() })
+                                    Alertinator.shared.alert(title: "成功下载内核缓存！", body: "现在，重启应用以完成设置并使用 dirtyZero。", showCancel: false, actionLabel: "退出", action: { exitinator() })
                                 }
                                 fetchingKcache = false
                             }
                         }
                     }) {
                         if fetchingKcache {
-                            ButtonLabel(text: "Fetching Kernelcache...", icon: "showMeProgressPlease")
+                            ButtonLabel(text: "正在获取内核缓存...", icon: "showMeProgressPlease")
                         } else {
-                            ButtonLabel(text: "Fetch Kernelcache", icon: "externaldrive")
+                            ButtonLabel(text: "获取内核缓存", icon: "externaldrive")
                         }
                     }
                     .buttonStyle(FancyButtonStyle(color: mgr.dsfailed || mgr.vfsfailed ? .red : Color.accentColor))
@@ -309,11 +309,11 @@ struct ContentView: View {
                         mgr.run()
                     }) {
                         if mgr.dsfailed || mgr.vfsfailed {
-                            ButtonLabel(text: "Exploit Failed!", icon: "xmark")
+                            ButtonLabel(text: "漏洞利用失败！", icon: "xmark")
                         } else if mgr.dsrunning || mgr.vfsrunning {
-                            ButtonLabel(text: "Running Exploit...", icon: "showMeProgressPlease")
+                            ButtonLabel(text: "正在运行漏洞利用...", icon: "showMeProgressPlease")
                         } else {
-                            ButtonLabel(text: "Run DarkSword", icon: "ant")
+                            ButtonLabel(text: "运行 DarkSword", icon: "ant")
                         }
                     }
                     .buttonStyle(FancyButtonStyle(color: mgr.dsfailed || mgr.vfsfailed ? .red : .purple))
@@ -323,11 +323,11 @@ struct ContentView: View {
                         mgr.vfsinit()
                     }) {
                         if mgr.vfsfailed {
-                            ButtonLabel(text: "Initalize Failed!", icon: "xmark")
+                            ButtonLabel(text: "初始化失败！", icon: "xmark")
                         } else if mgr.vfsrunning {
-                            ButtonLabel(text: "Initalizing VFS...", icon: "showMeProgressPlease")
+                            ButtonLabel(text: "正在初始化 VFS...", icon: "showMeProgressPlease")
                         } else {
-                            ButtonLabel(text: "Initalize VFS", icon: "cpu")
+                            ButtonLabel(text: "初始化 VFS", icon: "cpu")
                         }
                     }
                     .buttonStyle(FancyButtonStyle())
@@ -337,7 +337,7 @@ struct ContentView: View {
                 Button(action: {
                     mgr.applyTweaks(tweakData: tweakArray)
                 }) {
-                    ButtonLabel(text: "Apply Tweaks", icon: "checkmark")
+                    ButtonLabel(text: "应用调整", icon: "checkmark")
                 }
                 .buttonStyle(FancyButtonStyle(color: .green))
                 .disabled(tweakArray.flatMap { $0.tweaks }.filter { $0.isOn }.isEmpty)
@@ -345,13 +345,13 @@ struct ContentView: View {
                     Button(action: {
                         mgr.revertTweaks()
                     }) {
-                        ButtonLabel(text: "Revert", icon: "xmark")
+                        ButtonLabel(text: "还原", icon: "xmark")
                     }
                     .buttonStyle(FancyButtonStyle(color: .red))
                     Button(action: {
                         mgr.respringDevice()
                     }) {
-                        ButtonLabel(text: "Respring", icon: "goforward")
+                        ButtonLabel(text: "注销", icon: "goforward")
                     }
                     .buttonStyle(FancyButtonStyle(color: .orange))
                 }

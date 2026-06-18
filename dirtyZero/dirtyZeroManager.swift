@@ -20,7 +20,7 @@ final class dirtyZeroManager: ObservableObject {
     @AppStorage("storedChosenExploit") var storedChosenExploit: ExploitOptions = defaultExploit()
     
     // applying info
-    @Published var applyShortStatus: String = "Waiting..."
+    @Published var applyShortStatus: String = "等待中..."
     @Published var applyIcon: String = "showMeProgressPlease"
     @Published var applyColor: Color = Color(.label)
     
@@ -128,7 +128,7 @@ final class dirtyZeroManager: ObservableObject {
                     self.vfsfailed = false
                     print("[*] vfs ready!")
                     self.isReady = true
-                    self.applyShortStatus = "Ready to Apply!"
+                    self.applyShortStatus = "准备应用！"
                     self.applyIcon = "checkmark.circle.fill"
                     self.applyColor = Color(.label)
                 } else {
@@ -188,18 +188,18 @@ final class dirtyZeroManager: ObservableObject {
         }
         
         if failedTweaks.isEmpty {
-            Alertinator.shared.alert(title: "All tweaks applied successfully!", body: "Respring your device to see changes take effect.", actionLabel: "Respring", action: {
+            Alertinator.shared.alert(title: "所有调整已成功应用！", body: "注销设备以使更改生效。", actionLabel: "注销", action: {
                 self.respringDevice()
             })
         } else {
-            Alertinator.shared.alert(title: "Attempted to apply tweaks.", body: "The following tweaks failed to apply: \(failedTweaks)", actionLabel: "Respring", action: {
+            Alertinator.shared.alert(title: "已尝试应用调整。", body: "以下调整应用失败：\(failedTweaks)", actionLabel: "注销", action: {
                 self.respringDevice()
             })
         }
     }
     
     @MainActor func revertTweaks() {
-        Alertinator.shared.alert(title: "Are you sure you'd like to revert your tweaks?", body: "Your device will reboot to revert all of your tweaks", action: {
+        Alertinator.shared.alert(title: "确定要恢复所有调整吗？", body: "您的设备将重启以恢复所有调整。", action: {
             do {
                 if self.chosenExploit == .DarkSword {
                     print("[*] panicking deivce...")
@@ -211,7 +211,7 @@ final class dirtyZeroManager: ObservableObject {
                 }
             } catch {
                 print("[!] failed to reboot device: \(error)")
-                Alertinator.shared.alert(title: "Failed to reboot device!", body: "\(error)")
+                Alertinator.shared.alert(title: "设备重启失败！", body: "\(error)")
             }
         })
     }
@@ -226,7 +226,7 @@ final class dirtyZeroManager: ObservableObject {
             } else if isAppInstalled("com.respring.app") { // check if old respringapp is installed
                 LSApplicationWorkspace.default().openApplication(withBundleID: "com.respring.app")
             } else {
-                Alertinator.shared.alert(title: "RespringApp Not Detected", body: "Make sure you have RespringApp installed, then try again. Also ensure that you have the correct bundle id set in Settings.")
+                Alertinator.shared.alert(title: "未检测到 RespringApp", body: "请确保已安装 RespringApp，然后重试。同时确保在设置中设置了正确的包名 ID。")
             }
         }
     }

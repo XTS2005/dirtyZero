@@ -58,7 +58,7 @@ struct dirtyZeroApp: App {
                     if mgr.isSupported {
                         if mgr.chosenExploit == .l0ckwire {
                             mgr.isReady = true
-                            mgr.applyShortStatus = "Ready to Apply!"
+                            mgr.applyShortStatus = "准备应用！"
                             mgr.applyIcon = "checkmark.circle.fill"
                             mgr.applyColor = Color(.label)
                         } else {
@@ -68,11 +68,11 @@ struct dirtyZeroApp: App {
                             offsets_init()
                             
                             if mgr.hasOffsets {
-                                mgr.applyShortStatus = "Waiting for DarkSword..."
+                                mgr.applyShortStatus = "等待 DarkSword..."
                                 mgr.applyIcon = "xmark.circle.fill"
                                 mgr.applyColor = .secondary
                             } else {
-                                mgr.applyShortStatus = "No kernelcache found!"
+                                mgr.applyShortStatus = "未找到内核缓存！"
                                 mgr.applyIcon = "exclamationmark.triangle.fill"
                                 mgr.applyColor = Color.yellow
                             }
@@ -80,18 +80,18 @@ struct dirtyZeroApp: App {
                         print("[*] Welcome to dirtyZero! Running on \(device.systemName ?? "nil") \(device.systemVersion ?? "0.0"), \(device.description).")
                         print("[*] All tweaks are done in memory, so if something goes wrong, simply reboot your device.")
                     } else {
-                        mgr.applyShortStatus = "Unsupported device!"
+                        mgr.applyShortStatus = "不支持的设备！"
                         mgr.applyIcon = "xmark.circle.filll"
                         mgr.applyColor = .red
                         
-                        Alertinator.shared.alert(title: "This device combination is not supported.", body: "This device combination is not supported and never will be. dirtyZero only supports iOS 16.0 - iOS 18.7.1, and iOS 26.0 - iOS 26.0.1.", action: { exitinator() })
+                        Alertinator.shared.alert(title: "此设备不受支持。", body: "此设备不受支持，且永远不会被支持。dirtyZero 仅支持 iOS 16.0 - iOS 18.7.1 和 iOS 26.0 - iOS 26.0.1。", action: { exitinator() })
                     }
                 }
                 .onChange(of: mgr.chosenExploit) { exploit in
                     storedChosenExploit = exploit
                     
                     if exploit == .l0ckwire {
-                        mgr.applyShortStatus = "Ready to Apply!"
+                        mgr.applyShortStatus = "准备应用！"
                         mgr.applyIcon = "checkmark.circle.fill"
                         mgr.applyColor = Color(.label)
                     } else {
@@ -103,17 +103,17 @@ struct dirtyZeroApp: App {
                             
                             if !mgr.dsready || !mgr.vfsready {
                                 mgr.isReady = false
-                                mgr.applyShortStatus = "Waiting for DarkSword..."
+                                mgr.applyShortStatus = "等待 DarkSword..."
                                 mgr.applyIcon = "xmark.circle.fill"
                                 mgr.applyColor = .secondary
                             } else if mgr.dsready && mgr.vfsready {
-                                mgr.applyShortStatus = "Ready to Apply!"
+                                mgr.applyShortStatus = "准备应用！"
                                 mgr.applyIcon = "checkmark.circle.fill"
                                 mgr.applyColor = Color(.label)
                             }
                         } else if !mgr.hasOffsets {
                             mgr.isReady = false
-                            mgr.applyShortStatus = "No kernelcache found!"
+                            mgr.applyShortStatus = "未找到内核缓存！"
                             mgr.applyIcon = "exclamationmark.triangle.fill"
                             mgr.applyColor = Color.yellow
                         }
