@@ -67,6 +67,7 @@ struct SettingsView: View {
                                 LinkCreditCell(image: Image("alfiecg"), name: "Alfie CG", description: "开发了内核缓存下载库。", url: "https://github.com/alfiecg24")
                             }
                             LinkCreditCell(image: Image("neonmodder123"), name: "neonmodder123", description: "开发了 WebView 注销方法。", url: "https://github.com/neonmodder123")
+                            LinkCreditCell(image: Image("floatingdreamer"), name: "浮梦往事", description: "完成了应用汉化。", url: "http://www.coolapk.com/u/30819340")
                         }
                         .navigationTitle("致谢")
                     }
