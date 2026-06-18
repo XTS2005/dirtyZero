@@ -29,7 +29,7 @@ struct TweakInfoView: View {
     var body: some View {
         NavigationStack {
             List {
-                Section(header: HeaderLabel(text: "Tweak Info", icon: "info.circle")) {
+                Section(header: HeaderLabel(text: "调整信息", icon: "info.circle")) {
                     VStack(alignment: .leading) {
                         HStack {
                             Image(systemName: tweak.icon)
@@ -39,7 +39,7 @@ struct TweakInfoView: View {
                         HStack {
                             HStack {
                                 Image(systemName: isTweakSupported ? "checkmark.seal" : "xmark.seal")
-                                Text(isTweakSupported ? "Supported" : "Not Supported")
+                                Text(isTweakSupported ? "支持" : "不支持")
                             }
                             .font(.callout)
                             .foregroundStyle(isTweakSupported ? .green : .red)
@@ -70,7 +70,7 @@ struct TweakInfoView: View {
                     .listRowSeparator(.hidden)
                     .listRowInsets(.sectionInsets)
                 }
-                Section(header: HeaderLabel(text: "Target Paths", icon: "character.cursor.ibeam")) {
+                Section(header: HeaderLabel(text: "目标路径", icon: "character.cursor.ibeam")) {
                     ForEach(tweak.paths, id: \.self) { path in
                         Text(path)
                             .font(.system(.footnote, design: .monospaced))
@@ -81,7 +81,7 @@ struct TweakInfoView: View {
                                 Button(action: {
                                     UIPasteboard.general.string = path
                                 }) {
-                                    Label("Copy Path", systemImage: "doc.on.doc")
+                                    Label("复制路径", systemImage: "doc.on.doc")
                                 }
                             }
                     }
@@ -90,7 +90,7 @@ struct TweakInfoView: View {
                 }
             }
             .listStyle(.plain)
-            .navigationTitle("Details")
+            .navigationTitle("详情")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 Button(action: {
@@ -104,5 +104,5 @@ struct TweakInfoView: View {
 }
 
 #Preview {
-    TweakInfoView(tweak: ZeroTweak(name: "Hide Dock Background", icon: "dock.rectangle", minSupportedVersion: 16.0, maxSupportedVersion: 18.9, paths: ["/System/Library/PrivateFrameworks/CoreMaterial.framework/dockDark.materialrecipe", "/System/Library/PrivateFrameworks/CoreMaterial.framework/dockLight.materialrecipe"]))
+    TweakInfoView(tweak: ZeroTweak(name: "隐藏 Dock 背景", icon: "dock.rectangle", minSupportedVersion: 16.0, maxSupportedVersion: 18.9, paths: ["/System/Library/PrivateFrameworks/CoreMaterial.framework/dockDark.materialrecipe", "/System/Library/PrivateFrameworks/CoreMaterial.framework/dockLight.materialrecipe"]))
 }

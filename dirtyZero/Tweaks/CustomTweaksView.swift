@@ -24,21 +24,21 @@ struct CustomTweaksView: View {
         NavigationStack {
             List {
                 if enableDebugSettings {
-                    Section(header: HeaderLabel(text: "Debugging", icon: "ant")) {
+                    Section(header: HeaderLabel(text: "调试", icon: "ant")) {
                         Button(action: {
-                            tweakName = "Hide Dock Background"
+                            tweakName = "隐藏 Dock 背景"
                             targetPaths = ["/System/Library/PrivateFrameworks/CoreMaterial.framework/dockDark.materialrecipe", "/System/Library/PrivateFrameworks/CoreMaterial.framework/dockLight.materialrecipe"]
                         }) {
-                            ButtonLabel(text: "Populate Arrays", icon: "character.cursor.ibeam")
+                            ButtonLabel(text: "填充示例数组", icon: "character.cursor.ibeam")
                         }
                         .buttonStyle(TranslucentButtonStyle(color: .purple))
                     }
                     .listRowInsets(.sectionInsets)
                     .listRowSeparator(.hidden)
                 }
-                Section(header: HeaderLabel(text: "Create Tweak", icon: "paintbrush")) {
+                Section(header: HeaderLabel(text: "创建调整", icon: "paintbrush")) {
                     VStack {
-                        TextField("Tweak Name", text: $tweakName)
+                        TextField("调整名称", text: $tweakName)
                             .modifier(TextFieldBackground())
                         HStack {
                             TextField("/path/to/zero", text: $path2Add)
@@ -46,7 +46,7 @@ struct CustomTweaksView: View {
                             Button(action: {
                                 if targetPaths.contains(path2Add) {
                                     Haptic.shared.play(.heavy)
-                                    Alertinator.shared.alert(title: "Error!", body: "That path matches one or more paths that you have already included as a target path. Please try a different path.")
+                                    Alertinator.shared.alert(title: "错误！", body: "该路径已存在于目标路径列表中。请尝试不同的路径。")
                                 } else {
                                     Haptic.shared.play(.soft)
                                     targetPaths.append(path2Add)
@@ -64,7 +64,7 @@ struct CustomTweaksView: View {
                 .listRowSeparator(.hidden)
                 
                 if !targetPaths.isEmpty {
-                    Section(header: HeaderLabel(text: "Target Paths", icon: "character.cursor.ibeam")) {
+                    Section(header: HeaderLabel(text: "目标路径", icon: "character.cursor.ibeam")) {
                         ForEach(targetPaths, id: \.self) { path in
                             Text(path)
                                 .font(.system(.footnote, design: .monospaced))
@@ -86,15 +86,15 @@ struct CustomTweaksView: View {
                 }
             }
             .listStyle(.plain)
-            .navigationTitle("Tweak Creator")
+            .navigationTitle("调整创建器")
             .navigationBarTitleDisplayMode(.inline)
             .safeAreaInset(edge: .bottom) {
                 Button(action: {
-                    let customTweaksIndex = tweakArray.firstIndex(where: { $0.name == "Custom Tweaks" }) ?? 0
+                    let customTweaksIndex = tweakArray.firstIndex(where: { $0.name == "自定义调整" }) ?? 0
                     tweakArray[customTweaksIndex].tweaks.append(ZeroTweak(name: tweakName, icon: "paintbrush", paths: targetPaths))
                     dismiss()
                 }) {
-                    ButtonLabel(text: "Add Tweak", icon: "plus")
+                    ButtonLabel(text: "添加调整", icon: "plus")
                 }
                 .buttonStyle(TranslucentButtonStyle(color: .purple))
                 .disabled(targetPaths.isEmpty || tweakName.isEmpty)
