@@ -163,10 +163,10 @@
 				};
 			};
 			buildConfigurationList = 4397F94C2DCDDA0100090799 /* Build configuration list for PBXProject "dirtyZero" */;
-			developmentRegion = en;
+			developmentRegion = zh-Hans;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				en,
+				zh-Hans,
 				Base,
 			);
 			mainGroup = 4397F9482DCDDA0100090799;
