@@ -28,7 +28,7 @@ struct SettingsView: View {
     var body: some View {
         NavigationStack {
             List {
-                Section(header: HeaderLabel(text: "Info", icon: "info.circle")) {
+                Section(header: HeaderLabel(text: "信息", icon: "info.circle")) {
                     VStack {
                         AppInfoCell()
                             .frame(maxWidth: .infinity, alignment: .leading)
@@ -49,29 +49,29 @@ struct SettingsView: View {
                         Button(action: {
                             openURL(URL(string: "https://jailbreak.party")!)
                         }) {
-                            ButtonLabel(text: "Website", icon: "globe")
+                            ButtonLabel(text: "网站", icon: "globe")
                         }
                         .buttonStyle(TranslucentButtonStyle(color: .blue))
                     }
-                    NavigationLink("Credits") {
+                    NavigationLink("致谢") {
                         List {
-                            LinkCreditCell(image: Image("skadz108"), name: "Skadz", description: "Initial developer, backend, and exploit-related management.", url: "https://github.com/skadz108")
-                            LinkCreditCell(image: Image("lunginspector"), name: "lunginspector", description: "Frontend developer, tweak creator, and app UI.", url: "https://github.com/lunginspector")
-                            LinkCreditCell(image: Image("ianbeer"), name: "Ian Beer (Gooogle Project Zero)", description: "Discovering & publishing CVE-2025-24203.", url: "https://project-zero.issues.chromium.org/issues/391518636")
-                            LinkCreditCell(image: Image("DuyTran"), name: "Duy Tran", description: "App detection exploit, and various contributions to other utilized libraries", url: "https://github.com/khanhduytran0")
+                            LinkCreditCell(image: Image("skadz108"), name: "Skadz", description: "初始开发者、后端及漏洞利用相关管理。", url: "https://github.com/skadz108")
+                            LinkCreditCell(image: Image("lunginspector"), name: "lunginspector", description: "前端开发者、调整创建者及应用界面。", url: "https://github.com/lunginspector")
+                            LinkCreditCell(image: Image("ianbeer"), name: "Ian Beer (Gooogle Project Zero)", description: "发现并发布 CVE-2025-24203。", url: "https://project-zero.issues.chromium.org/issues/391518636")
+                            LinkCreditCell(image: Image("DuyTran"), name: "Duy Tran", description: "应用检测漏洞利用，以及对其他所用库的多项贡献。", url: "https://github.com/khanhduytran0")
                             if mgr.chosenExploit == .DarkSword {
-                                LinkCreditCell(image: Image("rooootdev"), name: "rooootdev", description: "DarkSword exploit library and implementation assistance", url: "https://github.com/rooootdev")
-                                LinkCreditCell(image: Image("appinstallerios"), name: "AppInstalleriOS", description: "Patchfinder assistance and numerous contributions", url: "https://github.com/AppInstalleriOSGH")
-                                LinkCreditCell(image: Image("wh1te4ever"), name: "wh1te4ever", description: "Various additions and research to DarkSword exploit", url: "https://github.com/wh1te4ever")
-                                LinkCreditCell(image: Image("opa334"), name: "opa334", description: "Original DarkSword kernel exploit implementation, and various required libraries", url: "https://github.com/opa334")
-                                LinkCreditCell(image: Image("alfiecg"), name: "Alfie CG", description: "Developed kernelcache downloading library", url: "https://github.com/alfiecg24")
+                                LinkCreditCell(image: Image("rooootdev"), name: "rooootdev", description: "DarkSword 漏洞利用库及实现协助。", url: "https://github.com/rooootdev")
+                                LinkCreditCell(image: Image("appinstallerios"), name: "AppInstalleriOS", description: "Patchfinder 协助及多项贡献。", url: "https://github.com/AppInstalleriOSGH")
+                                LinkCreditCell(image: Image("wh1te4ever"), name: "wh1te4ever", description: "对 DarkSword 漏洞利用的多项补充与研究。", url: "https://github.com/wh1te4ever")
+                                LinkCreditCell(image: Image("opa334"), name: "opa334", description: "原 DarkSword 内核漏洞利用实现，以及多项所需库。", url: "https://github.com/opa334")
+                                LinkCreditCell(image: Image("alfiecg"), name: "Alfie CG", description: "开发了内核缓存下载库。", url: "https://github.com/alfiecg24")
                             }
-                            LinkCreditCell(image: Image("neonmodder123"), name: "neonmodder123", description: "Developed WebView respring method.", url: "https://github.com/neonmodder123")
+                            LinkCreditCell(image: Image("neonmodder123"), name: "neonmodder123", description: "开发了 WebView 注销方法。", url: "https://github.com/neonmodder123")
                         }
-                        .navigationTitle("Credits")
+                        .navigationTitle("致谢")
                     }
                 }
-                Section(header: HeaderLabel(text: "Exploits", icon: "ant"), footer: Text("To use dirtyZero, you should run the exploit first, and then click the \"Fetch Kernelcache\" button. If fetching kernelcache fails, you can also try downloading it or extracting it yourself and importing it.")) {
+                Section(header: HeaderLabel(text: "漏洞利用", icon: "ant"), footer: Text("要使用 dirtyZero，您应首先运行漏洞利用，然后点击\"获取内核缓存\"按钮。如果获取内核缓存失败，您也可以尝试自行下载或提取并导入。")) {
                     if mgr.supportsl0ckwire {
                         Picker("", selection: $mgr.chosenExploit) {
                             ForEach(ExploitOptions.allCases, id: \.self) { option in
@@ -97,7 +97,7 @@ struct SettingsView: View {
                                         DispatchQueue.main.async {
                                             mgr.hasOffsets = true
                                             fetchingKcache = false
-                                            Alertinator.shared.alert(title: "Successfully feteched kernelcache!", body: "Now, restart the app to finish setup and use dirtyZero.", showCancel: false, actionLabel: "Exit", action: { exitinator() })
+                                            Alertinator.shared.alert(title: "成功获取内核缓存！", body: "现在，重启应用以完成设置并使用 dirtyZero。", showCancel: false, actionLabel: "退出", action: { exitinator() })
                                         }
                                         return
                                     }
@@ -107,7 +107,7 @@ struct SettingsView: View {
                                     DispatchQueue.main.async {
                                         mgr.hasOffsets = dlkc
                                         if dlkc {
-                                            Alertinator.shared.alert(title: "Successfully downloaded kernelcache!", body: "Now, restart the app to finish setup and use dirtyZero.", showCancel: false, actionLabel: "Exit", action: { exitinator() })
+                                            Alertinator.shared.alert(title: "成功下载内核缓存！", body: "现在，重启应用以完成设置并使用 dirtyZero。", showCancel: false, actionLabel: "退出", action: { exitinator() })
                                         }
                                         fetchingKcache = false
                                     }
@@ -115,12 +115,12 @@ struct SettingsView: View {
                             }) {
                                 if fetchingKcache {
                                     HStack {
-                                        Text("Fetching Kernelcache...")
+                                        Text("正在获取内核缓存...")
                                         Spacer()
                                         ProgressView()
                                     }
                                 } else {
-                                    Text("Fetch Kernelcache")
+                                    Text("获取内核缓存")
                                 }
                             }
                             .disabled(fetchingKcache || !mgr.dsready)
@@ -132,19 +132,19 @@ struct SettingsView: View {
                                 DispatchQueue.main.async {
                                     mgr.hasOffsets = dlkc
                                     if dlkc {
-                                        Alertinator.shared.alert(title: "Successfully downloaded kernelcache!", body: "Now, restart the app to finish setup and use dirtyZero.", showCancel: false, actionLabel: "Exit", action: { exitinator() })
+                                        Alertinator.shared.alert(title: "成功下载内核缓存！", body: "现在，重启应用以完成设置并使用 dirtyZero。", showCancel: false, actionLabel: "退出", action: { exitinator() })
                                     }
                                     downloadingKcache = false
                                 }
                             }) {
                                 if downloadingKcache {
                                     HStack {
-                                        Text("Downloading Kernelcache...")
+                                        Text("正在下载内核缓存...")
                                         Spacer()
                                         ProgressView()
                                     }
                                 } else {
-                                    Text("Download Kernelcache")
+                                    Text("下载内核缓存")
                                 }
                             }
                             .disabled(downloadingKcache)
@@ -152,14 +152,14 @@ struct SettingsView: View {
                             Button(action: {
                                 showKcacheImporter.toggle()
                             }) {
-                                Text("Import Kernelcache")
+                                Text("导入内核缓存")
                             }
                         } else {
-                            Button("Delete Kernelcache", role: .destructive, action: {
+                            Button("删除内核缓存", role: .destructive, action: {
                                 clearkerncachedata()
                                 mgr.hasOffsets = false
                                 mgr.isReady = false
-                                mgr.applyShortStatus = "No kernelcache found!"
+                                mgr.applyShortStatus = "未找到内核缓存！"
                                 mgr.applyIcon = "exclamationmark.triangle.fill"
                                 mgr.applyColor = Color.yellow
                             })
@@ -167,36 +167,36 @@ struct SettingsView: View {
                     }
                     
                     if mgr.chosenExploit == .DarkSword {
-                        NavigationLink("Modify Offsets", destination: OffsetManagementView())
+                        NavigationLink("修改偏移量", destination: OffsetManagementView())
                     }
                 }
-                Section(header: HeaderLabel(text: "Applying", icon: "checkmark.seal")) {
+                Section(header: HeaderLabel(text: "应用", icon: "checkmark.seal")) {
                     Toggle(isOn: $useRespringApp) {
-                        Text("Use Respring App")
-                        Text("Only enable this if you prefer using a [seperate app](https://github.com/jailbreakdotparty/dirtyZero/releases/tag/respringr) to respring your device.")
+                        Text("使用 Respring App")
+                        Text("仅当您更倾向于使用[独立应用](https://github.com/jailbreakdotparty/dirtyZero/releases/tag/respringr)来重启桌面时启用此项。")
                     }
                     if useRespringApp {
-                        TextField("Respring App BID", text: $respringAppBID)
+                        TextField("Respring App Bundle ID", text: $respringAppBID)
                     }
                 }
-                Section(header: HeaderLabel(text: "Customizaton", icon: "checklist")) {
-                    Toggle("Debug Settings", isOn: $enableDebugSettings)
-                    Toggle("Risky Tweaks", isOn: $enableRiskyTweaks)
+                Section(header: HeaderLabel(text: "自定义", icon: "checklist")) {
+                    Toggle("调试设置", isOn: $enableDebugSettings)
+                    Toggle("风险调整", isOn: $enableRiskyTweaks)
                 }
-                Section(header: HeaderLabel(text: "Data", icon: "externaldrive")) {
-                    Button("Reset Selected Tweaks", action: {
+                Section(header: HeaderLabel(text: "数据", icon: "externaldrive")) {
+                    Button("重置选中的调整", action: {
                         tweakArray = TweakArray.tweaks
                     })
-                    Button("Remove Custom Tweaks", role: .destructive, action: {
-                        Alertinator.shared.alert(title: "Are you sure you'd like to remove all your tweaks?", body: "This will remove every tweak that you have created.", action: {
-                            let customTweaksIndex = tweakArray.firstIndex(where: { $0.name == "Custom Tweaks" }) ?? 0
+                    Button("移除自定义调整", role: .destructive, action: {
+                        Alertinator.shared.alert(title: "您确定要移除所有自定义调整吗？", body: "这将移除您创建的所有调整。", action: {
+                            let customTweaksIndex = tweakArray.firstIndex(where: { $0.name == "自定义调整" }) ?? 0
                             
                             tweakArray[customTweaksIndex].tweaks.removeAll()
                         })
                     })
                 }
             }
-            .navigationTitle("Settings")
+            .navigationTitle("设置")
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button(action: { dismiss() }) {
